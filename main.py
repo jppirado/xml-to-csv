@@ -3,10 +3,6 @@ from xml.dom import minidom
 import pandas as pd
 import os
 
-root = ET.parse('xml/NFe-43230289982268002980550020002336701002634178.xml').getroot()
-nsNFE = {'ns': "http://www.portalfiscal.inf.br/nfe" }
-numero_nfe = root.find('ns:NFe/ns:infNFe/ns:ide/ns:nNF' , nsNFE) 
-
 
 cols = ["Cod","Operação" , "Seire", "Numero", 'D H Emisão' , "D H Saída", 'CNPJ Emissor' , 'Nome Emissor', 'Nome Comercial' , 'logradouro Emissor', 'Bairro emissor', 'Municipio emissor', 'CEP emissor' , 'cpf destino' , 'nome destino' , 'logradouro destino', 'bairro destino' , 'municipio destino' , 'cep destino',
            "vIPI","vICMS","vBC","vFN","modFrete" , "vPa" , 'cod prod', 'cean' , 'descricao produto' , 'ncm' ,'CFOP' ,'qcom' , 'ucom' , 'vucom' , 'vprod' ,]
