@@ -9,9 +9,10 @@ numero_nfe = root.find('ns:NFe/ns:infNFe/ns:ide/ns:nNF' , nsNFE)
 
 
 cols = ["Cod","Operação" , "Seire", "Numero", 'D H Emisão' , "D H Saída", 'CNPJ Emissor' , 'Nome Emissor', 'Nome Comercial' , 'logradouro Emissor', 'Bairro emissor', 'Municipio emissor', 'CEP emissor' , 'cpf destino' , 'nome destino' , 'logradouro destino', 'bairro destino' , 'municipio destino' , 'cep destino',
-         'cod prod', 'cean' , 'descricao produto' , 'ncm' ,'CFOP' ,'qcom' , 'ucom' , 'vucom' , 'vprod' ,  "vIPI","vICMS","vBC","vFN","modFrete" , "vPa"]
+           "vIPI","vICMS","vBC","vFN","modFrete" , "vPa" , 'cod prod', 'cean' , 'descricao produto' , 'ncm' ,'CFOP' ,'qcom' , 'ucom' , 'vucom' , 'vprod' ,]
 
 dirs = os.listdir('xml/')
+xprod = cprod = cean = ncm = cfpo = ucom = qcom = vucom = vprod = ceantib = ""
 print(dirs)
 row = []
 
@@ -39,16 +40,6 @@ for dir in dirs:
         bairrod = nfe.getElementsByTagName('xBairro')[1].firstChild.data
         cepd = nfe.getElementsByTagName('CEP')[1].firstChild.data
         mund = nfe.getElementsByTagName('xMun')[1].firstChild.data
-        cprod = nfe.getElementsByTagName('cProd')[0].firstChild.data
-        cean = nfe.getElementsByTagName('cEAN')[0].firstChild.data      
-        xprod = nfe.getElementsByTagName('xProd')[0].firstChild.data      
-        ncm = nfe.getElementsByTagName('NCM')[0].firstChild.data      
-        cfpo = nfe.getElementsByTagName('CFOP')[0].firstChild.data      
-        ucom = nfe.getElementsByTagName('uCom')[0].firstChild.data      
-        qcom= nfe.getElementsByTagName('qCom')[0].firstChild.data      
-        vucom = nfe.getElementsByTagName('vUnCom')[0].firstChild.data      
-        vprod = nfe.getElementsByTagName('vProd')[0].firstChild.data      
-        ceantib = nfe.getElementsByTagName('cEANTrib')[0].firstChild.data      
         vipi = nfe.getElementsByTagName('vIPI')[0].firstChild.data      
         vicms = nfe.getElementsByTagName('vICMS')[0].firstChild.data      
         vbc = nfe.getElementsByTagName('vBC')[0].firstChild.data      
@@ -56,6 +47,21 @@ for dir in dirs:
         modfrete = nfe.getElementsByTagName('modFrete')[0].firstChild.data      
         vpag = nfe.getElementsByTagName('vPag')[0].firstChild.data      
 
+        for i in range(nfe.getElementsByTagName('cEAN').length):      
+
+                xprod += f"{nfe.getElementsByTagName('xProd')[i].firstChild.data};"
+                cprod += f"{nfe.getElementsByTagName('cProd')[i].firstChild.data};"
+                cean += f"{nfe.getElementsByTagName('cEAN')[i].firstChild.data};"
+                ncm += f"{nfe.getElementsByTagName('NCM')[i].firstChild.data};"
+                cfpo += f"{nfe.getElementsByTagName('CFOP')[i].firstChild.data};"
+                ucom += f"{nfe.getElementsByTagName('uCom')[i].firstChild.data};"
+                qcom += f"{nfe.getElementsByTagName('qCom')[i].firstChild.data};"
+                vucom += f"{nfe.getElementsByTagName('vUnCom')[i].firstChild.data};"
+                vprod += f"{nfe.getElementsByTagName('vProd')[i].firstChild.data};"
+                ceantib += f"{nfe.getElementsByTagName('cEANTrib')[i].firstChild.data};"
+                
+      
+        
 
         row.append({
                 "Cod":cod,
