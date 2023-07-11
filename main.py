@@ -8,20 +8,26 @@ cols = ["Cod","Operação" , "Seire", "Numero", 'D H Emisão' , "D H Saída", 'C
            "vIPI","vICMS","vBC","vFN","modFrete" , "vPa" , 'cod prod', 'cean' , 'descricao produto' , 'ncm' ,'CFOP' ,'qcom' , 'ucom' , 'vucom' , 'vprod' ,]
 
 dirs = os.listdir('xml/')
-xprod = cprod = cean = ncm = cfpo = ucom = qcom = vucom = vprod = ceantib = ""
+# xprod = cprod = cean = ncm = cfpo = ucom = qcom = vucom = vprod = ceantib = ""
 print(dirs)
 row = []
 
 for dir in dirs:
+        xprod = cprod = cean = ncm = cfpo = ucom = qcom = vucom = vprod = ceantib = ""
+
         xml = open('xml/'+dir)
         nfe = minidom.parse(xml)
         cod = nfe.getElementsByTagName('cUF')[0].firstChild.data
         nat = nfe.getElementsByTagName('natOp')[0].firstChild.data
         serie = nfe.getElementsByTagName('serie')[0].firstChild.data
         num = nfe.getElementsByTagName('nNF')[0].firstChild.data
-        dhemi = nfe.getElementsByTagName('dhEmi')[0].firstChild.data
-        dhSaiEnt= nfe.getElementsByTagName('dhSaiEnt')[0].firstChild.data
-
+        try:
+                dhemi = nfe.getElementsByTagName('dhEmi')[0].firstChild.data
+                dhSaiEnt= nfe.getElementsByTagName('dhSaiEnt')[0].firstChild.data
+        except IndexError:
+                dhemi = nfe.getElementsByTagName('dEmi')[0].firstChild.data
+                dhSaiEnt= nfe.getElementsByTagName('dSaiEnt')[0].firstChild.data
+                
         cnpj = nfe.getElementsByTagName('CNPJ')[0].firstChild.data
         copNome = nfe.getElementsByTagName('xNome')[0].firstChild.data
         copNomeC = nfe.getElementsByTagName('xFant')[0].firstChild.data
@@ -41,21 +47,34 @@ for dir in dirs:
         vbc = nfe.getElementsByTagName('vBC')[0].firstChild.data      
         vfn = nfe.getElementsByTagName('vNF')[0].firstChild.data      
         modfrete = nfe.getElementsByTagName('modFrete')[0].firstChild.data      
-        vpag = nfe.getElementsByTagName('vPag')[0].firstChild.data      
+        vpag = nfe.getElementsByTagName('vProd')[0].firstChild.data      
 
-        for i in range(nfe.getElementsByTagName('cEAN').length):      
-
+        for i in range(nfe.getElementsByTagName('xProd').length):      
                 xprod += f"{nfe.getElementsByTagName('xProd')[i].firstChild.data};"
                 cprod += f"{nfe.getElementsByTagName('cProd')[i].firstChild.data};"
-                cean += f"{nfe.getElementsByTagName('cEAN')[i].firstChild.data};"
-                ncm += f"{nfe.getElementsByTagName('NCM')[i].firstChild.data};"
+                try:
+                        cean += f"{nfe.getElementsByTagName('cEAN')[i].firstChild.data};"
+                except AttributeError: 
+                        cean += ";"
+                        ceantib += ";"
+
+                try:
+                        ncm += f"{nfe.getElementsByTagName('NCM')[i].firstChild.data};"
+                except IndexError:
+                        ncm += ";"
+                        
+                try:
+                        ceantib += f"{nfe.getElementsByTagName('cEANTrib')[i].firstChild.data};"
+                except AttributeError: 
+                        
+                        ceantib += ";"
+
                 cfpo += f"{nfe.getElementsByTagName('CFOP')[i].firstChild.data};"
                 ucom += f"{nfe.getElementsByTagName('uCom')[i].firstChild.data};"
                 qcom += f"{nfe.getElementsByTagName('qCom')[i].firstChild.data};"
                 vucom += f"{nfe.getElementsByTagName('vUnCom')[i].firstChild.data};"
                 vprod += f"{nfe.getElementsByTagName('vProd')[i].firstChild.data};"
-                ceantib += f"{nfe.getElementsByTagName('cEANTrib')[i].firstChild.data};"
-                
+ 
       
         
 
