@@ -23,9 +23,12 @@ for dir in dirs:
         num = nfe.getElementsByTagName('nNF')[0].firstChild.data
         try:
                 dhemi = nfe.getElementsByTagName('dhEmi')[0].firstChild.data
-                dhSaiEnt= nfe.getElementsByTagName('dhSaiEnt')[0].firstChild.data
         except IndexError:
                 dhemi = nfe.getElementsByTagName('dEmi')[0].firstChild.data
+
+        try:
+                dhSaiEnt= nfe.getElementsByTagName('dhSaiEnt')[0].firstChild.data
+        except IndexError:
                 dhSaiEnt= nfe.getElementsByTagName('dSaiEnt')[0].firstChild.data
                 
         cnpj = nfe.getElementsByTagName('CNPJ')[0].firstChild.data
